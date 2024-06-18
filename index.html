@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+    <title>BeMovies</title>
+</head>
+<body>
+    <section class="section-header">
+        <div class="div-header">
+            <a href="" class="logo"><span>Be</span>Movies</a>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Search</a></li>
+                <li><a href="#">Latest</a></li>
+                <li><a href="#">Genres</a></li>
+                <li><a href="#">Register</a></li>
+                <li><a href="#" id="openModalBtn">Signin</a></li>
+            </ul>
+            <div id="myModal" class="modal">
+                <div class="modal-content">
+                    <div>
+                        <label for="username">Username</label>
+                        <input type="text" name="username" id="username" placeholder="username"/><br>
+                        <p id="msgus">only lowercase and at least 5 characters, max 10.</p>
+                        <br><br>
+                    </div>
+                    <div>
+                        <label for="email">Email</label>
+                        <input type="email" name="email" id="email" placeholder="your email"/><br>
+                        <p id="msgem">please enter a valid email!</p>
+                    </div>
+                    <div>
+                        <input type="text">
+                        <button type="submit">Send</button>
+                        <span class="close">&times;</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section-results">
+        <div class="input-client">
+            <input type="text" id="input"><br>
+            <button id="search-movie"><img src="Vector.png" alt=""></button>
+        </div>
+                <!-- Slider main container -->
+        <div class="swiper-results">
+            <!-- Additional required wrapper -->
+            <div class="swiper-wrapper">
+                <!-- Slides -->
+                <div class="swiper-slide output"></div>
+            </div>        
+            <!-- If we need navigation buttons -->
+            <div class="swiper-button-prev swiper-button-prev-results"><img src="Left.png" alt=""></div>
+            <div class="swiper-button-next swiper-button-next-results"><img src="Right.png" alt=""></div>
+        
+            <!-- If we need scrollbar -->
+            <div class="swiper-scrollbar-results"></div>
+        </div>
+    </section>
+
+    <section class="section-latest">
+        <div class="div-latest">
+            <p>Latest releases</p>
+            <!-- Slider main container -->
+            <div class="swiper-latest">
+                <!-- Additional required wrapper -->
+                <div class="swiper-wrapper2">
+                    <!-- Slides -->
+                    <div class="swiper-slide output-latest"></div>
+                </div>        
+                <!-- If we need navigation buttons -->
+                    <!-- <div class="swiper-button-prev swiper-button-prev-latest"><img src="Left.png" alt=""></div>
+                    <div class="swiper-button-next swiper-button-next-latest"><img src="Right.png" alt=""></div> -->
+            
+                <!-- If we need scrollbar -->
+                <div class="swiper-scrollbar-latest"></div>
+            </div>
+        </div>
+    </section>
+    <section class="genre-search">
+        <div class="genre-head">
+            <h1>Movies By Genre</h1>
+            <ul>
+                <li><a href="#">Comedy</a></li>
+                <li><a href="#">Drama</a></li>
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Romance</a></li>
+                <li><a href="#">Fantasy</a></li>
+                <li><a href="#">Animation</a></li>
+            </ul><br>
+            <hr>
+        </div>
+        <!-- Slider main container -->
+        <div class="swiper-genre">
+            <!-- Additional required wrapper -->
+            <div class="swiper-wrapper3">
+            <!-- Slides -->
+                <!-- <div class="swiper-slide2 output"></div> -->
+            </div>        
+            <!-- If we need navigation buttons -->
+            <!-- <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div> -->
+        
+            <!-- If we need scrollbar -->
+            <!-- <div class="swiper-scrollbar"></div> -->
+        </div>
+    </section>
+    <section class="section-footer">
+        <div class="div-footer">
+            <div class="menu-footer">
+                <a href="" class="logo"><span>Be</span>Movies</a>
+                <ul>
+                    <li><a href="">Search</a></li>
+                    <li><a href="">Latest</a></li>
+                    <li><a href="">Genres</a></li>
+                    <li><a href="">Register</a></li>
+                    <li><a href="" id="openModalBtn">Signin</a></li>
+                </ul>
+            </div>
+            <p>@2023 - All rights reserved</p>
+        </div>
+    </section>
+
+    <!-- API KEY: 27c5ad2effc94eba21b728a527e37db3 -->
+    <!-- API Read Access Token: eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyN2M1YWQyZWZmYzk0ZWJhMjFiNzI4YTUyN2UzN2RiMyIsInN1YiI6IjY2NmZmYTZmNDNmY2NkYzVlNGQxZDU0OCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.txw2oV5Ej-CCVrvv03EX0wC0dhgrdXqPZvNtV1dexd4 -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    
+    <script src="appjs">
+        //     const swiperResults = new Swiper('.swiper-results', {
+        //     navigation: {
+        //         nextEl: '.swiper-button-next-results',
+        //         prevEl: '.swiper-button-prev-results',
+        //     },
+        //     scrollbar: {
+        //         el: '.swiper-scrollbar-results',
+        //         draggable: true,
+        //     },
+        // });
+
+        // // Initialize Swiper for latest
+        // const swiperLatest = new Swiper('.swiper-latest', {
+        //     navigation: {
+        //         nextEl: '.swiper-button-next-latest',
+        //         prevEl: '.swiper-button-prev-latest',
+        //     },
+        //     scrollbar: {
+        //         el: '.swiper-scrollbar-latest',
+        //         draggable: true,
+        //     },
+        // });
+    </script>
+</body>
+</html>
