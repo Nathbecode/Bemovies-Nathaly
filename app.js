@@ -12,7 +12,16 @@ const closeBtn = document.querySelector(".close");
 const modal = document.querySelector(".modal");
 const input = document.querySelector("#input");
 const searchBtn = document.querySelector("#search-movie");
+const swiperLatestElem = document.querySelector(".swiper-latest");
 const swiperWrapperLatest = document.querySelector(".swiper-wrapper2");
+const swiperScrollbarLatest = document.querySelector(
+  ".swiper-scrollbar-latest"
+);
+
+// Classes for Swiper.
+swiperLatestElem.classList.add("swiper");
+swiperWrapperLatest.classList.add("swiper-wrapper");
+swiperScrollbarLatest.classList.add("swiper-scrollbar");
 
 // Events.
 openModalBtn.addEventListener("click", openSignin);
@@ -22,23 +31,9 @@ input.addEventListener("keydown", (e) => {
   if (e.key === "Enter") search();
 });
 
-const swiperLatest = new Swiper(".swiper-latest", {
-  direction: "horizontal",
-
-  slidesPerView: 4,
-
-  navigation: {
-    nextEl: ".swiper-button-next-latest",
-    prevEl: ".swiper-button-prev-latest",
-  },
-
-  scrollbar: {
-    el: ".swiper-scrollbar-latest",
-  },
-});
-
 // Function calls.
-// displayLatestMovies();
+removeSwiperSlides();
+displayLatestMovies();
 
 // Functions.
 function openSignin() {
@@ -47,6 +42,13 @@ function openSignin() {
 
 function closeSignin() {
   modal.style.display = "none";
+}
+
+function removeSwiperSlides() {
+  let swiperSlides = document.querySelectorAll(".swiper-slide");
+  for (let i = 0; i < swiperSlides.length; i++) {
+    swiperSlides[i].remove();
+  }
 }
 
 async function search() {
@@ -76,7 +78,7 @@ async function displayLatestMovies() {
   if (results.length < 1) return;
 
   for (let i = 0; i < results.length; i++) {
-    let swiperSlide = document.createElement("div");
+    const swiperSlide = document.createElement("div");
     swiperSlide.classList.add("swiper-slide-latest");
     swiperSlide.classList.add("swiper-slide");
     const image = document.createElement("img");
@@ -84,6 +86,30 @@ async function displayLatestMovies() {
     image.src = `https://image.tmdb.org/t/p/w500/${poster}`;
     swiperSlide.appendChild(image);
     swiperWrapperLatest.appendChild(swiperSlide);
+
+    const swiperPrev = document.createElement("div");
+    const swiperNext = document.createElement("div");
+    swiperPrev.classList.add("swiper-button-prev", "swiper-button-prev-latest");
+    swiperNext.classList.add("swiper-button-next", "swiper-button-next-latest");
+    const prevImg = document.createElement("img");
+    const nextImg = document.createElement("img");
+    prevImg.src = "./Left.png";
+    nextImg.src = "./Right.png";
+    swiperPrev.appendChild(prevImg);
+    swiperNext.appendChild(nextImg);
+    swiperLatestElem.appendChild(swiperPrev);
+    swiperLatestElem.appendChild(swiperNext);
+    const swiperLatest = new Swiper(".swiper-latest", {
+      direction: "horizontal",
+      slidesPerView: 4,
+      navigation: {
+        nextEl: ".swiper-button-next-latest",
+        prevEl: ".swiper-button-prev-latest",
+      },
+      scrollbar: {
+        el: ".swiper-scrollbar-latest",
+      },
+    });
   }
 }
 
