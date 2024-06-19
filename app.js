@@ -22,6 +22,14 @@ const swiperWrapperLatest = document.querySelector(".swiper-wrapper2");
 const swiperScrollbarLatest = document.querySelector(
   ".swiper-scrollbar-latest"
 );
+const swiperGenreElem = document.querySelector(".swiper-genre");
+const swiperWrapperGenre = document.querySelector(".swiper-wrapper3");
+const swiperScrollbarGenre = document.createElement("div");
+swiperScrollbarGenre.classList.add(
+  "swiper-scrollbar",
+  "swiper-scrollbar-genre"
+);
+swiperGenreElem.appendChild(swiperScrollbarGenre);
 
 // Classes for Swiper.
 swiperLatestElem.classList.add("swiper");
@@ -30,6 +38,8 @@ swiperScrollbarLatest.classList.add("swiper-scrollbar");
 swiperResultsElem.classList.add("swiper");
 swiperWrapperResults.classList.add("swiper-wrapper1");
 swiperScrollbarResults.classList.add("swiper-scrollbar");
+swiperGenreElem.classList.add("swiper");
+swiperWrapperGenre.classList.add("swiper-wrapper");
 
 // Events.
 openModalBtn.addEventListener("click", openSignin);
@@ -41,7 +51,10 @@ input.addEventListener("keydown", (e) => {
 
 // Function calls.
 removeSwiperSlides();
-displayLatestMovies();
+const genres = await getGenres();
+let genreId = genres.find((x) => x.name == "Animation")["id"];
+await displayMoviesByGenre(genreId);
+await displayLatestMovies();
 
 // Functions.
 function openSignin() {
@@ -59,13 +72,35 @@ function removeSwiperSlides() {
   }
 }
 
+async function getGenres() {
+  const uri =
+    "https://api.themoviedb.org/3/genre/movie/list?api_key=70c6035bf8942f25abed525718e8c034";
+  const response = await fetch(uri);
+  const json = await response.json();
+  return json["genres"];
+}
+
+async function getMoviesByGenre(genreId) {
+  const uri = `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&with_genres=${genreId}&api_key=70c6035bf8942f25abed525718e8c034&api_key=${apiKey}`;
+  const response = await fetch(uri);
+  const json = await response.json();
+  return json;
+}
+
+async function displayMoviesByGenre(genreId) {
+  const response = await getMoviesByGenre(genreId);
+  const results = response["results"];
+  if (results.length < 1) return;
+  createSwiper(results, "genre", swiperWrapperGenre, swiperGenreElem);
+  console.log(response);
+}
+
 async function search() {
   const inputValue = input.value;
   const apiResponse = await getMoviesBySearch(inputValue);
   const results = apiResponse["results"];
   if (results.length < 1) return;
   displaySearchResults(results);
-  console.log(apiResponse);
 }
 
 async function getMoviesBySearch(movieTitle) {
