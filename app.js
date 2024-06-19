@@ -12,6 +12,11 @@ const closeBtn = document.querySelector(".close");
 const modal = document.querySelector(".modal");
 const input = document.querySelector("#input");
 const searchBtn = document.querySelector("#search-movie");
+const swiperResultsElem = document.querySelector(".swiper-results");
+const swiperWrapperResults = document.querySelector(".swiper-wrapper");
+const swiperScrollbarResults = document.querySelector(
+  ".swiper-scrollbar-results"
+);
 const swiperLatestElem = document.querySelector(".swiper-latest");
 const swiperWrapperLatest = document.querySelector(".swiper-wrapper2");
 const swiperScrollbarLatest = document.querySelector(
@@ -22,6 +27,9 @@ const swiperScrollbarLatest = document.querySelector(
 swiperLatestElem.classList.add("swiper");
 swiperWrapperLatest.classList.add("swiper-wrapper");
 swiperScrollbarLatest.classList.add("swiper-scrollbar");
+swiperResultsElem.classList.add("swiper");
+swiperWrapperResults.classList.add("swiper-wrapper1");
+swiperScrollbarResults.classList.add("swiper-scrollbar");
 
 // Events.
 openModalBtn.addEventListener("click", openSignin);
@@ -54,15 +62,21 @@ function removeSwiperSlides() {
 async function search() {
   const inputValue = input.value;
   const apiResponse = await getMoviesBySearch(inputValue);
+  const results = apiResponse["results"];
+  if (results.length < 1) return;
+  displaySearchResults(results);
   console.log(apiResponse);
 }
 
-// First way, with API key
 async function getMoviesBySearch(movieTitle) {
   const uri = `https://api.themoviedb.org/3/search/movie?query=${movieTitle}&include_adult=false&language=en-US&page=1&api_key=${apiKey}`;
   const response = await fetch(uri);
   const json = await response.json();
   return json;
+}
+
+function displaySearchResults(results) {
+  createSwiper(results, "results", swiperWrapperResults, swiperResultsElem);
 }
 
 async function getLatestMovies() {
@@ -77,40 +91,58 @@ async function displayLatestMovies() {
   const results = resp["results"];
   if (results.length < 1) return;
 
+  createSwiper(results, "latest", swiperWrapperLatest, swiperLatestElem);
+}
+
+function createSwiper(results, swiperSection, swiperWrapper, swiperElem) {
   for (let i = 0; i < results.length; i++) {
     const swiperSlide = document.createElement("div");
-    swiperSlide.classList.add("swiper-slide-latest");
+    swiperSlide.classList.add(`swiper-slide-${swiperSection}`);
     swiperSlide.classList.add("swiper-slide");
     const image = document.createElement("img");
     const poster = results[i]["poster_path"];
     image.src = `https://image.tmdb.org/t/p/w500/${poster}`;
     swiperSlide.appendChild(image);
-    swiperWrapperLatest.appendChild(swiperSlide);
-
-    const swiperPrev = document.createElement("div");
-    const swiperNext = document.createElement("div");
-    swiperPrev.classList.add("swiper-button-prev", "swiper-button-prev-latest");
-    swiperNext.classList.add("swiper-button-next", "swiper-button-next-latest");
-    const prevImg = document.createElement("img");
-    const nextImg = document.createElement("img");
-    prevImg.src = "./Left.png";
-    nextImg.src = "./Right.png";
-    swiperPrev.appendChild(prevImg);
-    swiperNext.appendChild(nextImg);
-    swiperLatestElem.appendChild(swiperPrev);
-    swiperLatestElem.appendChild(swiperNext);
-    const swiperLatest = new Swiper(".swiper-latest", {
-      direction: "horizontal",
-      slidesPerView: 4,
-      navigation: {
-        nextEl: ".swiper-button-next-latest",
-        prevEl: ".swiper-button-prev-latest",
-      },
-      scrollbar: {
-        el: ".swiper-scrollbar-latest",
-      },
-    });
+    swiperWrapper.appendChild(swiperSlide);
   }
+  const swiperNext = createSwiperNext(swiperSection);
+  const swiperPrev = createSwiperPrev(swiperSection);
+  swiperElem.appendChild(swiperPrev);
+  swiperElem.appendChild(swiperNext);
+
+  const swiper = new Swiper(`.swiper-${swiperSection}`, {
+    direction: "horizontal",
+    slidesPerView: 4,
+    navigation: {
+      nextEl: `.swiper-button-next-${swiperSection}`,
+      prevEl: `.swiper-button-prev-${swiperSection}`,
+    },
+    scrollbar: {
+      el: `.swiper-scrollbar-${swiperSection}`,
+    },
+  });
 }
 
-//TODO : ajouter classes via DOM, pour latest swiper.
+function createSwiperNext(swiperSection) {
+  const swiperNext = document.createElement("div");
+  swiperNext.classList.add(
+    "swiper-button-next",
+    `swiper-button-next-${swiperSection}`
+  );
+  const nextImg = document.createElement("img");
+  nextImg.src = "./Right.png";
+  swiperNext.appendChild(nextImg);
+  return swiperNext;
+}
+
+function createSwiperPrev(swiperSection) {
+  const swiperPrev = document.createElement("div");
+  swiperPrev.classList.add(
+    "swiper-button-prev",
+    `swiper-button-prev-${swiperSection}`
+  );
+  const prevImg = document.createElement("img");
+  prevImg.src = "./Left.png";
+  swiperPrev.appendChild(prevImg);
+  return swiperPrev;
+}
