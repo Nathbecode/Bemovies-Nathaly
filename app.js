@@ -23,6 +23,7 @@ const closeBtn = document.querySelector(".close");
 const modal = document.querySelector(".modal");
 const input = document.querySelector("#input");
 const searchBtn = document.querySelector("#search-movie");
+const divResults = document.querySelector(".div-results");
 const swiperResultsElem = document.querySelector(".swiper-results");
 const swiperWrapperResults = document.querySelector(".swiper-wrapper");
 const swiperScrollbarResults = document.querySelector(
@@ -76,7 +77,7 @@ swiperGenreElem.classList.add("swiper");
 swiperWrapperGenre.classList.add("swiper-wrapper");
 
 // Function calls.
-swiperResultsElem.classList.add(".hidden");
+divResults.classList.add("hidden");
 removeSwiperSlides();
 const genres = await getGenres();
 let genreId = genres.find((x) => x.name == "Comedy")["id"];
@@ -142,7 +143,7 @@ async function displayMoviesByGenre(genreId) {
 }
 
 async function search() {
-  swiperResultsElem.classList.remove(".hidden");
+  divResults.classList.remove("hidden");
   removeSlidesInWrapper(".swiper-wrapper1");
   const inputValue = input.value;
   const apiResponse = await getMoviesBySearch(inputValue);
