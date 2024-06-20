@@ -34,6 +34,10 @@ p{
 
 }
 
+.hidden{
+    display: none;
+}
+
 /* STYLE */
 
 /* HEADER */
@@ -161,6 +165,7 @@ ul a:hover {
 
 }
 
+
 #input{
     height: 44px;
     width: 272px;
@@ -168,26 +173,96 @@ ul a:hover {
 }
 
 .swiper-wrapper{
+    margin: 0 auto;
     max-width: 100%;
-    height: 55vh;
     padding: 20px;
+    
 }
 
-.swiper-slide{
-    width: 230px;
-    height: 351px;
+.swiper-results{
+    /* height: 55vh; */
 }
 
+.swiper-latest {
+    position: relative;
+    width: 100%;
+    height: 55vh; 
+}
+
+.swiper-slide {
+    flex: 0 0 auto; 
+}
+
+/* HOVER FILMS */
+.img-div{
+    position: absolute;
+    z-index: 1;
+    height: 351px; 
+}
+
+.hover-div{
+    position: absolute;
+    z-index: 0;
+    background-color: rgba(0, 0, 0, 0.85);
+}
+
+.hover-div:hover{
+    z-index: 2;
+}
+
+.img-div:hover,
+.img:hover{
+    z-index: 0;
+}
+
+.hover-div{
+    text-align: center;
+    font-family: 'Inter';
+    padding: 20px;
+    height: 100%;
+    width: 100%;
+}
+.movie-title{
+    padding: 30px;
+    font-weight: 700;
+    max-height: 80px;
+    overflow-y: hidden;
+}
+.movie-year{
+    color: rgba(176, 176, 176, 1);
+    font-weight: 700;
+    padding-top: 27px;
+}
+.movie-genres{
+    font-weight: 500;
+    font-size: 14px;
+    padding: 26px;
+}
+.imdb-rating{
+    margin: 0 auto;
+    width: 50px;
+}
+
+.imdb-star{
+    margin: 0 auto;
+    width: 35px;
+    height: 35px;
+}
+.imdb-rating>p{
+    font-weight: 700;
+    color: rgba(204, 0, 0, 1);
+    font-size: 32px;
+}
+
+
+
+/* END HOVER FILMS */
 .swiper-button-next-results ,
 .swiper-button-prev-results {
     width: 20px;
     font-size: 20px;
     color: #7e7a7a;
     padding: 5px; 
-}
-.swiper-wrapper:not(:empty) + .swiper-button-prev-results,
-.swiper-wrapper:not(:empty) + .swiper-button-next-results {
-    display: block;
 }
 
 
@@ -207,24 +282,31 @@ ul a:hover {
 }
 
 .div-latest{
+    margin: 0 auto;
+    max-width: 100%;
     padding: 20px;
-    height: 40vh;
+    height: 60vh;
 }
 
 .swiper-button-next-latest ,
-.swiper-button-prev-latest {
+.swiper-button-prev-latest,
+.swiper-button-next-genre ,
+.swiper-button-prev-genre {
     width: 20px;
     font-size: 20px;
     color: #7e7a7a;
     padding: 5px;
 }
 
-.swiper-button-prev-latest:hover {
+.swiper-button-prev-latest:hover,
+.swiper-button-prev-genre:hover {
     background-color: #333;
 }
 
 .swiper-button-next-latest::after,
-.swiper-button-prev-latest::after {
+.swiper-button-prev-latest::after,
+.swiper-button-next-genre::after,
+.swiper-button-prev-genre::after {
     display: none;
 }
 
@@ -235,6 +317,8 @@ ul a:hover {
 }
 
 .genre-head{
+    margin: 0 auto;
+    max-width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -261,23 +345,19 @@ font-weight: 400;
 }
 
 .swiper-genre{
-    height: 50vh;
+    height: 55vh;
 }
 
 /* MODAL */
 .modal {
-    display: none; /* Hidden by default */
+    /* display: none; Hidden by default */
     position: fixed; /* Stay in place */
     z-index: 4; /* Sit on top */
     width: 100%; /* Full width */
     height: 100%; /* Full height */
-    background-color: rgba(85, 71, 187, 0.6); /* Black w/ opacity */
+    background-color: rgba(8, 8, 8, 0.85); /* Black w/ opacity */
     margin: 0% auto;
     top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    padding: 0;
 }
 
 #openModalBtn{
@@ -293,17 +373,19 @@ font-weight: 400;
 
 /* Modal content box */
 .modal-content {
-    background-color: #fefefe;
+    background-color: #7a6a6a;
     margin: 15% auto; /* 15% from the top and centered */
     padding: 20px;
     border: 1px solid #888;
-    width: 80%; /* Could be more or less, depending on screen size */
+    width: 30%; 
+    height: 50vh;
 }
 
 /* Close button (X) */
 .close {
     color: #aaa;
-    float: right;
+    float: left;
+    transform: translate(-10px,-11px);
     font-size: 28px;
     font-weight: bold;
 }
@@ -360,3 +442,4 @@ font-weight: 400;
 .menu-footer>ul>li>a{
     font-size: 11px;
 }
+
