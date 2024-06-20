@@ -76,6 +76,7 @@ swiperGenreElem.classList.add("swiper");
 swiperWrapperGenre.classList.add("swiper-wrapper");
 
 // Function calls.
+swiperResultsElem.classList.add(".hidden");
 removeSwiperSlides();
 const genres = await getGenres();
 let genreId = genres.find((x) => x.name == "Comedy")["id"];
@@ -141,6 +142,7 @@ async function displayMoviesByGenre(genreId) {
 }
 
 async function search() {
+  swiperResultsElem.classList.remove(".hidden");
   removeSlidesInWrapper(".swiper-wrapper1");
   const inputValue = input.value;
   const apiResponse = await getMoviesBySearch(inputValue);
@@ -227,7 +229,7 @@ function createHoverDiv(movie) {
       if (genre["id"] === id) movieGenres.push(genre["name"]);
     });
   });
-  
+
   hoverDiv.innerHTML = `
   <p class="movie-title">${movie["original_title"]}</p>
   <p class="movie-year">${movie["release_date"].slice(0, 4)}</p>
