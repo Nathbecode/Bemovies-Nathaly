@@ -30,6 +30,22 @@ swiperScrollbarGenre.classList.add(
   "swiper-scrollbar-genre"
 );
 swiperGenreElem.appendChild(swiperScrollbarGenre);
+const genreHead = document.querySelector(".genre-head");
+const genreHeadChildren = genreHead.children;
+const genreUnorderedList = genreHeadChildren[1];
+const genreListItems = genreUnorderedList.children;
+genreListItems[0].children[0].classList.add("comedy");
+genreListItems[0].children[0].removeAttribute("href");
+genreListItems[1].children[0].classList.add("drama");
+genreListItems[1].children[0].removeAttribute("href");
+genreListItems[2].children[0].classList.add("action");
+genreListItems[2].children[0].removeAttribute("href");
+genreListItems[3].children[0].classList.add("romance");
+genreListItems[3].children[0].removeAttribute("href");
+genreListItems[4].children[0].classList.add("fantasy");
+genreListItems[4].children[0].removeAttribute("href");
+genreListItems[5].children[0].classList.add("animation");
+genreListItems[5].children[0].removeAttribute("href");
 
 // Classes for Swiper.
 swiperLatestElem.classList.add("swiper");
@@ -41,6 +57,13 @@ swiperScrollbarResults.classList.add("swiper-scrollbar");
 swiperGenreElem.classList.add("swiper");
 swiperWrapperGenre.classList.add("swiper-wrapper");
 
+// Function calls.
+removeSwiperSlides();
+const genres = await getGenres();
+let genreId = genres.find((x) => x.name == "Comedy")["id"];
+await displayMoviesByGenre(genreId);
+await displayLatestMovies();
+
 // Events.
 openModalBtn.addEventListener("click", openSignin);
 closeBtn.addEventListener("click", closeSignin);
@@ -48,13 +71,11 @@ searchBtn.addEventListener("click", search);
 input.addEventListener("keydown", (e) => {
   if (e.key === "Enter") search();
 });
-
-// Function calls.
-removeSwiperSlides();
-const genres = await getGenres();
-let genreId = genres.find((x) => x.name == "Animation")["id"];
-await displayMoviesByGenre(genreId);
-await displayLatestMovies();
+genreUnorderedList.addEventListener("click", async (e) => {
+  removeSlidesInWrapper(".swiper-wrapper3");
+  let genreId = genres.find((x) => x.name == e.target.innerText)["id"];
+  await displayMoviesByGenre(genreId);
+});
 
 // Functions.
 function openSignin() {
@@ -69,6 +90,14 @@ function removeSwiperSlides() {
   let swiperSlides = document.querySelectorAll(".swiper-slide");
   for (let i = 0; i < swiperSlides.length; i++) {
     swiperSlides[i].remove();
+  }
+}
+
+function removeSlidesInWrapper(wrapperName) {
+  const wrapper = document.querySelector(wrapperName);
+  let children = Array.from(wrapper.children);
+  for (let i = 0; i < children.length; i++) {
+    children[i].remove();
   }
 }
 
@@ -94,6 +123,7 @@ async function displayMoviesByGenre(genreId) {
 }
 
 async function search() {
+  removeSlidesInWrapper(".swiper-wrapper1");
   const inputValue = input.value;
   const apiResponse = await getMoviesBySearch(inputValue);
   const results = apiResponse["results"];
