@@ -20,7 +20,11 @@ unorderedLists[2].innerHTML = ulHtml;
 
 const openModalBtn = document.querySelector("#openModalBtn");
 const closeBtn = document.querySelector(".close");
+const closeBtnMovie = document.querySelectorAll(".close")[1];
 const modal = document.querySelector(".modal");
+const modalHidden = document.querySelector(".modalhidden");
+const imgFilm = document.querySelector(".imgfilm");
+const contentFilm = document.querySelector(".contentfilm");
 const input = document.querySelector("#input");
 const searchBtn = document.querySelector("#search-movie");
 const divResults = document.querySelector(".div-results");
@@ -78,6 +82,7 @@ swiperWrapperGenre.classList.add("swiper-wrapper");
 
 // Function calls.
 divResults.classList.add("hidden");
+modalHidden.classList.add("hidden");
 removeSwiperSlides();
 const genres = await getGenres();
 let genreId = genres.find((x) => x.name == "Comedy")["id"];
@@ -87,6 +92,7 @@ await displayLatestMovies();
 // Events.
 openModalBtn.addEventListener("click", openSignin);
 closeBtn.addEventListener("click", closeSignin);
+closeBtnMovie.addEventListener("click", closeMovieModal);
 searchBtn.addEventListener("click", search);
 input.addEventListener("keydown", (e) => {
   if (e.key === "Enter") search();
@@ -99,11 +105,21 @@ genreUnorderedList.addEventListener("click", async (e) => {
 
 // Functions.
 function openSignin() {
-  modal.style.display = "block";
+  modal.classList.remove("hidden");
 }
 
 function closeSignin() {
-  modal.style.display = "none";
+  modal.classList.add("hidden");
+}
+
+function closeMovieModal() {
+  modalHidden.classList.add("hidden");
+  resetMovieModal();
+}
+
+function resetMovieModal() {
+  imgFilm.innerHTML = "";
+  contentFilm.innerHTML = "";
 }
 
 function removeSwiperSlides() {
@@ -171,8 +187,8 @@ async function getLatestMovies() {
 }
 
 async function displayLatestMovies() {
-  const resp = await getLatestMovies();
-  const results = resp["results"];
+  const response = await getLatestMovies();
+  const results = response["results"];
   if (results.length < 1) return;
 
   createSwiper(results, "latest", swiperWrapperLatest, swiperLatestElem);
@@ -183,6 +199,10 @@ function createSwiper(results, swiperSection, swiperWrapper, swiperElem) {
     const swiperSlide = document.createElement("div");
     swiperSlide.classList.add(`swiper-slide-${swiperSection}`);
     swiperSlide.classList.add("swiper-slide");
+
+    swiperSlide.addEventListener("click", () =>
+      displayMovieModal(results[i]["id"])
+    );
 
     const imgDiv = createImgDiv(results[i]["poster_path"]);
     swiperSlide.appendChild(imgDiv);
@@ -209,6 +229,48 @@ function createSwiper(results, swiperSection, swiperWrapper, swiperElem) {
       el: `.swiper-scrollbar-${swiperSection}`,
     },
   });
+}
+
+async function displayMovieModal(movieId) {
+  const response = await getMovieById(movieId);
+  if (response["success"] === false) return;
+
+  modalHidden.classList.remove("hidden");
+
+  const img = document.createElement("img");
+  const posterPath = response["poster_path"];
+  img.src = `https://image.tmdb.org/t/p/w500/${posterPath}`;
+  imgFilm.appendChild(img);
+
+  const movieGenres = response["genres"].map((x) => x["name"]);
+  const movieCast = response["credits"]["cast"]
+    .slice(0, 5)
+    .map((actor) => actor["name"]);
+
+  const contentFilmHtml = `
+    <p class="modal-movie-title">${response["original_title"]}</p>
+    <p class="modal-movie-year">${response["release_date"].slice(0, 4)}</p>
+    <div class="modal-imdb-rating">
+      <div class="modal-imdb-star">
+        <img src="./star.png" >
+      </div>
+      <p>${Math.round(response["vote_average"] * 10) / 10}</p>
+    </div>
+    <p class="modal-movie-genres">${movieGenres.join(" / ")}</p>
+    <p class="modal-overview">${response["overview"]}</p>
+    <p class="modal-cast">
+      <span>CAST:</span>
+      ${movieCast.join(", ")}
+    </p>
+  `;
+  contentFilm.innerHTML = contentFilmHtml;
+}
+
+async function getMovieById(movieId) {
+  const uri = `https://api.themoviedb.org/3/movie/${movieId}?api_key=${apiKey}&append_to_response=credits`;
+  const response = await fetch(uri);
+  const json = await response.json();
+  return json;
 }
 
 function createImgDiv(posterPath) {
