@@ -47,6 +47,24 @@ genreListItems[4].children[0].removeAttribute("href");
 genreListItems[5].children[0].classList.add("animation");
 genreListItems[5].children[0].removeAttribute("href");
 
+const sectionResults = document.querySelector(".section-results");
+sectionResults.id = "section-results";
+const sectionLatest = document.querySelector(".section-latest");
+sectionLatest.id = "section-latest";
+const sectionGenre = document.querySelector(".genre-search");
+sectionGenre.id = "genre-search";
+
+const unorderedLists = document.querySelectorAll("ul");
+const ulHtml = `<ul>
+<li><a href="#section-results">Search</a></li>
+<li><a href="#section-latest">Latest</a></li>
+<li><a href="#genre-search">Genres</a></li>
+<li><a>Register</a></li>
+<li><a id="openModalBtn">Signin</a></li>
+</ul>`;
+unorderedLists[0].innerHTML = ulHtml;
+unorderedLists[2].innerHTML = ulHtml;
+
 // Classes for Swiper.
 swiperLatestElem.classList.add("swiper");
 swiperWrapperLatest.classList.add("swiper-wrapper");
