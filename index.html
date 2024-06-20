@@ -23,21 +23,30 @@
                 <div class="modal-content">
                     <div>
                         <span class="close">&times;</span>
-                        <button class="singinbtn">SINGIN</button><button>LOGIN</button><BR></BR>
+                        <button class="singin-btn">SINGIN</button><button class="login">LOGIN</button><BR></BR>
                     </div>
-                    <div>
+                    <div class="login">
                         <input type="text" name="username" id="username" placeholder="Username"/><br>
                         <p id="msgus">only lowercase and at least 5 characters, max 10.</p>
                         <label for="password"></label>
-                        <input type="password" name="email" id="email" placeholder="Password"/><br>
+                        <input type="password" name="password" id="password" placeholder="Password"/><br>
                         <p id="msgem">your password is not correct!</p>
                         <input type="checkbox" id="myCheckbox" name="myCheckbox" value="checkboxValue">
                         <label for="myCheckbox">Remenber Me</label><BR></BR>
-                    </div>
-                    <div>
                         <button class="login">LOGIN</button><br><br>
                         <a href="">I forgot my password</a><br>
-                        <a href="">Not a member yer ? <span>Sign up</span></a>
+                        <a href="">Not a member yet ? <span>Sign up</span></a>
+                    </div>
+                    <div class="singin hidden">
+                        <p>WELCOME!</p>
+                        <input type="text" name="username" id="username" placeholder="Username"/><br>
+                        <p id="msgus">only lowercase and at least 5 characters, max 10.</p>
+                        <label for="email"></label>
+                        <input type="email" name="email" id="email" placeholder="email"/><br>
+                        <p id="msg-email">Please enter a valid email</p>
+                        <input type="checkbox" id="myCheckbox" name="myCheckbox" value="checkboxValue">
+                        <label for="myCheckbox">Remenber Me</label><BR></BR>
+                        <button class="singin-btn">SINGIN</button><br><br>
                     </div>
                 </div>
             </div>
