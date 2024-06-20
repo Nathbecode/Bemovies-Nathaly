@@ -97,7 +97,6 @@ ul a:hover {
 /* MODAL CONTENT FILM*/
 /* The Modal (background) */
 .modal2 {
-    display: none; 
     position: fixed; 
     z-index: 4; 
     left: 0;
@@ -381,6 +380,10 @@ font-weight: 400;
     padding: 20px;
     width: 410px; 
     height: 608px;
+}
+
+.singin-btn, .login-btn {
+    width: 145px;
 }
 
 /* Close button (X) */
