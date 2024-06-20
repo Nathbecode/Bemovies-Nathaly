@@ -7,6 +7,17 @@ const apiKey = returnKey();
 // const bearerToken = returnBearerToken();
 
 // Query selectors.
+const unorderedLists = document.querySelectorAll("ul");
+const ulHtml = `<ul>
+<li><a href="#section-results">Search</a></li>
+<li><a href="#section-latest">Latest</a></li>
+<li><a href="#genre-search">Genres</a></li>
+<li><a>Register</a></li>
+<li><a id="openModalBtn">Signin</a></li>
+</ul>`;
+unorderedLists[0].innerHTML = ulHtml;
+unorderedLists[2].innerHTML = ulHtml;
+
 const openModalBtn = document.querySelector("#openModalBtn");
 const closeBtn = document.querySelector(".close");
 const modal = document.querySelector(".modal");
@@ -53,17 +64,6 @@ const sectionLatest = document.querySelector(".section-latest");
 sectionLatest.id = "section-latest";
 const sectionGenre = document.querySelector(".genre-search");
 sectionGenre.id = "genre-search";
-
-const unorderedLists = document.querySelectorAll("ul");
-const ulHtml = `<ul>
-<li><a href="#section-results">Search</a></li>
-<li><a href="#section-latest">Latest</a></li>
-<li><a href="#genre-search">Genres</a></li>
-<li><a>Register</a></li>
-<li><a id="openModalBtn">Signin</a></li>
-</ul>`;
-unorderedLists[0].innerHTML = ulHtml;
-unorderedLists[2].innerHTML = ulHtml;
 
 // Classes for Swiper.
 swiperLatestElem.classList.add("swiper");
@@ -180,10 +180,13 @@ function createSwiper(results, swiperSection, swiperWrapper, swiperElem) {
     const swiperSlide = document.createElement("div");
     swiperSlide.classList.add(`swiper-slide-${swiperSection}`);
     swiperSlide.classList.add("swiper-slide");
-    const image = document.createElement("img");
-    const poster = results[i]["poster_path"];
-    image.src = `https://image.tmdb.org/t/p/w500/${poster}`;
-    swiperSlide.appendChild(image);
+
+    const imgDiv = createImgDiv(results[i]["poster_path"]);
+    swiperSlide.appendChild(imgDiv);
+
+    const hoverDiv = createHoverDiv(results[i]);
+    swiperSlide.appendChild(hoverDiv);
+
     swiperWrapper.appendChild(swiperSlide);
   }
   const swiperNext = createSwiperNext(swiperSection);
@@ -194,7 +197,7 @@ function createSwiper(results, swiperSection, swiperWrapper, swiperElem) {
   const swiper = new Swiper(`.swiper-${swiperSection}`, {
     direction: "horizontal",
     slidesPerView: 4,
-    spaceBetween: 30,
+    spaceBetween: 5,
     navigation: {
       nextEl: `.swiper-button-next-${swiperSection}`,
       prevEl: `.swiper-button-prev-${swiperSection}`,
@@ -203,6 +206,41 @@ function createSwiper(results, swiperSection, swiperWrapper, swiperElem) {
       el: `.swiper-scrollbar-${swiperSection}`,
     },
   });
+}
+
+function createImgDiv(posterPath) {
+  const imgDiv = document.createElement("div");
+  const image = document.createElement("img");
+  image.src = `https://image.tmdb.org/t/p/w500/${posterPath}`;
+  imgDiv.appendChild(image);
+  imgDiv.classList.add("img-div");
+  return imgDiv;
+}
+
+function createHoverDiv(movie) {
+  const hoverDiv = document.createElement("div");
+  const movieGenres = [];
+  const genreIds = movie["genre_ids"];
+
+  genreIds.forEach((id) => {
+    genres.forEach((genre) => {
+      if (genre["id"] === id) movieGenres.push(genre["name"]);
+    });
+  });
+  
+  hoverDiv.innerHTML = `
+  <p class="movie-title">${movie["original_title"]}</p>
+  <p class="movie-year">${movie["release_date"].slice(0, 4)}</p>
+  <p class="movie-genres">${movieGenres.join(" / ")}</p>
+  <div class="imdb-rating">
+    <div class="imdb-star">
+      <img src="./star.png" >
+    </div>
+    <p>${Math.round(movie["vote_average"] * 10) / 10}</p>
+  </div>
+  `;
+  hoverDiv.classList.add("hover-div");
+  return hoverDiv;
 }
 
 function createSwiperNext(swiperSection) {
