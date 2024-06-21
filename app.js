@@ -1,10 +1,19 @@
 // Import: API key OR bearer token.
-import { returnKey } from "./return-key.js";
-// import { returnBearerToken } from "./return-key.js";
+// import { returnKey } from "./return-key.js";
+import { returnBearerToken } from "./return-key.js";
 
 // Variable: API key OR bearer token.
-const apiKey = returnKey();
-// const bearerToken = returnBearerToken();
+// const apiKey = returnKey();
+const bearerToken = returnBearerToken();
+
+const options = {
+  method: "GET",
+  headers: {
+    accept: "application/json",
+    Authorization: `Bearer ${bearerToken}`,
+  },
+};
+
 
 // Query selectors.
 const unorderedLists = document.querySelectorAll("ul");
@@ -167,15 +176,21 @@ function removeSlidesInWrapper(wrapperName) {
 }
 
 async function getGenres() {
-  const uri = `https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}`;
-  const response = await fetch(uri);
+  try {
+    const uri = `https://api.themoviedb.org/3/genre/movie/list`;
+  const response = await fetch(uri, options);
   const json = await response.json();
   return json["genres"];
+  }
+  catch (ex) 
+  {
+    console.log(ex);
+  }
 }
 
 async function getMoviesByGenre(genreId) {
-  const uri = `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&with_genres=${genreId}&api_key=${apiKey}`;
-  const response = await fetch(uri);
+  const uri = `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&with_genres=${genreId}`;
+  const response = await fetch(uri, options);
   const json = await response.json();
   return json;
 }
@@ -198,8 +213,8 @@ async function search() {
 }
 
 async function getMoviesBySearch(movieTitle) {
-  const uri = `https://api.themoviedb.org/3/search/movie?query=${movieTitle}&include_adult=false&language=en-US&page=1&api_key=${apiKey}`;
-  const response = await fetch(uri);
+  const uri = `https://api.themoviedb.org/3/search/movie?query=${movieTitle}&include_adult=false&language=en-US&page=1`;
+  const response = await fetch(uri, options);
   const json = await response.json();
   return json;
 }
@@ -209,8 +224,8 @@ function displaySearchResults(results) {
 }
 
 async function getLatestMovies() {
-  const uri = `https://api.themoviedb.org/3/movie/now_playing?api_key=${apiKey}`;
-  const response = await fetch(uri);
+  const uri = `https://api.themoviedb.org/3/movie/now_playing`;
+  const response = await fetch(uri, options);
   const json = await response.json();
   return json;
 }
@@ -296,8 +311,8 @@ async function displayMovieModal(movieId) {
 }
 
 async function getMovieById(movieId) {
-  const uri = `https://api.themoviedb.org/3/movie/${movieId}?api_key=${apiKey}&append_to_response=credits`;
-  const response = await fetch(uri);
+  const uri = `https://api.themoviedb.org/3/movie/${movieId}?append_to_response=credits`;
+  const response = await fetch(uri, options);
   const json = await response.json();
   return json;
 }
