@@ -4,8 +4,8 @@ import { returnBearerToken } from "./return-key.js";
 
 // Variable: API key OR bearer token.
 // const apiKey = returnKey();
-const bearerToken = returnBearerToken();
 
+const bearerToken = returnBearerToken();
 const options = {
   method: "GET",
   headers: {
@@ -14,8 +14,8 @@ const options = {
   },
 };
 
-
 // Query selectors.
+// DOM pour changer le contenu des UL.
 const unorderedLists = document.querySelectorAll("ul");
 const ulHtml = `<ul>
 <li><a href="#section-results">Search</a></li>
@@ -27,18 +27,27 @@ const ulHtml = `<ul>
 unorderedLists[0].innerHTML = ulHtml;
 unorderedLists[2].innerHTML = ulHtml;
 
+// DOM pour target les éléments nécessaires.
+// Modal Login.
 const openLoginModalBtns = document.querySelectorAll(".openLoginModalBtn");
 const openSignupModalBtns = document.querySelectorAll(".openSignupModalBtn");
 const closeBtn = document.querySelectorAll(".close")[0];
-const closeBtnMovie = document.querySelectorAll(".close")[1];
 const modal = document.querySelector(".modal");
-const modalHidden = document.querySelector(".modalhidden");
 const login = document.querySelector(".login");
 const signup = document.querySelector(".signin");
 const signinSwitcher = document.querySelectorAll(".signin-btn")[0];
 const loginSwitcher = document.querySelector(".first-login");
+const up = document.querySelector(".UP");
+const notMemberYetAnchor = up.parentElement;
+notMemberYetAnchor.removeAttribute("href");
+
+// Modal Movie.
+const closeBtnMovie = document.querySelectorAll(".close")[1];
+const modalHidden = document.querySelector(".modalhidden");
 const imgFilm = document.querySelector(".imgfilm");
 const contentFilm = document.querySelector(".contentfilm");
+
+// Search feature.
 const input = document.querySelector("#input");
 const searchBtn = document.querySelector("#search-movie");
 const divResults = document.querySelector(".div-results");
@@ -47,11 +56,20 @@ const swiperWrapperResults = document.querySelector(".swiper-wrapper");
 const swiperScrollbarResults = document.querySelector(
   ".swiper-scrollbar-results"
 );
+
+const sectionResults = document.querySelector(".section-results");
+sectionResults.id = "section-results";
+
+// Latest feature.
 const swiperLatestElem = document.querySelector(".swiper-latest");
 const swiperWrapperLatest = document.querySelector(".swiper-wrapper2");
 const swiperScrollbarLatest = document.querySelector(
   ".swiper-scrollbar-latest"
 );
+const sectionLatest = document.querySelector(".section-latest");
+sectionLatest.id = "section-latest";
+
+// Genre feature.
 const swiperGenreElem = document.querySelector(".swiper-genre");
 const swiperWrapperGenre = document.querySelector(".swiper-wrapper3");
 const swiperScrollbarGenre = document.createElement("div");
@@ -77,16 +95,8 @@ genreListItems[4].children[0].removeAttribute("href");
 genreListItems[5].children[0].classList.add("animation");
 genreListItems[5].children[0].removeAttribute("href");
 
-const sectionResults = document.querySelector(".section-results");
-sectionResults.id = "section-results";
-const sectionLatest = document.querySelector(".section-latest");
-sectionLatest.id = "section-latest";
 const sectionGenre = document.querySelector(".genre-search");
 sectionGenre.id = "genre-search";
-
-const up = document.querySelector(".UP");
-const notMemberYetAnchor = up.parentElement;
-notMemberYetAnchor.removeAttribute("href");
 
 // Classes for Swiper.
 swiperLatestElem.classList.add("swiper");
@@ -98,7 +108,7 @@ swiperScrollbarResults.classList.add("swiper-scrollbar");
 swiperGenreElem.classList.add("swiper");
 swiperWrapperGenre.classList.add("swiper-wrapper");
 
-// Function calls.
+// Function calls pour setup la page d'arrivée.
 divResults.classList.add("hidden");
 modalHidden.classList.add("hidden");
 modal.classList.add("hidden");
@@ -109,6 +119,7 @@ await displayMoviesByGenre(genreId);
 await displayLatestMovies();
 
 // Events.
+// Login events.
 openLoginModalBtns.forEach((btn) => btn.addEventListener("click", openLogin));
 openSignupModalBtns.forEach((btn) => btn.addEventListener("click", openSignin));
 
@@ -117,10 +128,14 @@ signinSwitcher.addEventListener("click", openSignin);
 loginSwitcher.addEventListener("click", openLogin);
 up.addEventListener("click", openSignin);
 closeBtnMovie.addEventListener("click", closeMovieModal);
+
+// Search events.
 searchBtn.addEventListener("click", search);
 input.addEventListener("keydown", (e) => {
   if (e.key === "Enter") search();
 });
+
+// Genre events.
 genreUnorderedList.addEventListener("click", async (e) => {
   removeSlidesInWrapper(".swiper-wrapper3");
   let genreId = genres.find((x) => x.name == e.target.innerText)["id"];
@@ -128,6 +143,7 @@ genreUnorderedList.addEventListener("click", async (e) => {
 });
 
 // Functions.
+// Login functions.
 function openSigninModal() {
   modal.classList.remove("hidden");
 }
@@ -141,19 +157,17 @@ function closeSigninModal() {
 function openSignin() {
   openSigninModal();
   login.classList.add("hidden");
-  loginSwitcher.classList.remove("signinBtnActive");
   signup.classList.remove("hidden");
+  loginSwitcher.classList.remove("signinBtnActive");
   signinSwitcher.classList.add("signinBtnActive");
-  //signinBtnActive
 }
 
 function openLogin() {
   openSigninModal();
   signup.classList.add("hidden");
-  signinSwitcher.classList.remove("signinBtnActive");
   login.classList.remove("hidden");
+  signinSwitcher.classList.remove("signinBtnActive");
   loginSwitcher.classList.add("signinBtnActive");
-  //signinBtnActive
 }
 
 function closeMovieModal() {
@@ -184,21 +198,12 @@ function removeSlidesInWrapper(wrapperName) {
 async function getGenres() {
   try {
     const uri = `https://api.themoviedb.org/3/genre/movie/list`;
-  const response = await fetch(uri, options);
-  const json = await response.json();
-  return json["genres"];
-  }
-  catch (ex) 
-  {
+    const response = await fetch(uri, options);
+    const json = await response.json();
+    return json["genres"];
+  } catch (ex) {
     console.log(ex);
   }
-}
-
-async function getMoviesByGenre(genreId) {
-  const uri = `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&with_genres=${genreId}`;
-  const response = await fetch(uri, options);
-  const json = await response.json();
-  return json;
 }
 
 async function displayMoviesByGenre(genreId) {
@@ -206,6 +211,13 @@ async function displayMoviesByGenre(genreId) {
   const results = response["results"];
   if (results.length < 1) return;
   createSwiper(results, "genre", swiperWrapperGenre, swiperGenreElem);
+}
+
+async function getMoviesByGenre(genreId) {
+  const uri = `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&with_genres=${genreId}`;
+  const response = await fetch(uri, options);
+  const json = await response.json();
+  return json;
 }
 
 async function search() {
@@ -229,19 +241,19 @@ function displaySearchResults(results) {
   createSwiper(results, "results", swiperWrapperResults, swiperResultsElem);
 }
 
-async function getLatestMovies() {
-  const uri = `https://api.themoviedb.org/3/movie/now_playing`;
-  const response = await fetch(uri, options);
-  const json = await response.json();
-  return json;
-}
-
 async function displayLatestMovies() {
   const response = await getLatestMovies();
   const results = response["results"];
   if (results.length < 1) return;
 
   createSwiper(results, "latest", swiperWrapperLatest, swiperLatestElem);
+}
+
+async function getLatestMovies() {
+  const uri = `https://api.themoviedb.org/3/movie/now_playing`;
+  const response = await fetch(uri, options);
+  const json = await response.json();
+  return json;
 }
 
 function createSwiper(results, swiperSection, swiperWrapper, swiperElem) {
@@ -292,25 +304,33 @@ async function displayMovieModal(movieId) {
   img.src = `https://image.tmdb.org/t/p/w500/${posterPath}`;
   imgFilm.appendChild(img);
 
-  const movieGenres = response["genres"].map((x) => x["name"]);
-  const movieCast = response["credits"]["cast"]
+  let movieGenres = response["genres"].map((x) => x["name"]);
+  movieGenres = movieGenres.join(" / ");
+
+  let movieCast = response["credits"]["cast"]
     .slice(0, 5)
     .map((actor) => actor["name"]);
+  movieCast = movieCast.join(", ");
+
+  const originalTitle = response["original_title"];
+  const releaseDate = response["release_date"].slice(0, 4);
+  const voteAverage = Math.round(response["vote_average"] * 10) / 10;
+  const overview = response["overview"];
 
   const contentFilmHtml = `
-    <p class="modal-movie-title">${response["original_title"]}</p>
-    <p class="modal-movie-year">${response["release_date"].slice(0, 4)}</p>
+    <p class="modal-movie-title">${originalTitle}</p>
+    <p class="modal-movie-year">${releaseDate}</p>
     <div class="modal-imdb-rating">
       <div class="modal-imdb-star">
         <img src="./star.png" >
       </div>
-      <p>${Math.round(response["vote_average"] * 10) / 10}</p>
+      <p>${voteAverage}</p>
     </div>
-    <p class="modal-movie-genres">${movieGenres.join(" / ")}</p>
-    <p class="modal-overview">${response["overview"]}</p>
+    <p class="modal-movie-genres">${movieGenres}</p>
+    <p class="modal-overview">${overview}</p>
     <p class="modal-cast">
       <span>CAST:</span>
-      ${movieCast.join(", ")}
+      ${movieCast}
     </p>
   `;
   contentFilm.innerHTML = contentFilmHtml;
@@ -334,7 +354,7 @@ function createImgDiv(posterPath) {
 
 function createHoverDiv(movie) {
   const hoverDiv = document.createElement("div");
-  const movieGenres = [];
+  let movieGenres = [];
   const genreIds = movie["genre_ids"];
 
   genreIds.forEach((id) => {
@@ -342,16 +362,21 @@ function createHoverDiv(movie) {
       if (genre["id"] === id) movieGenres.push(genre["name"]);
     });
   });
+  movieGenres = movieGenres.join(" / ");
+
+  const originalTitle = movie["original_title"];
+  const releaseDate = movie["release_date"].slice(0, 4);
+  const voteAverage = Math.round(movie["vote_average"] * 10) / 10;
 
   hoverDiv.innerHTML = `
-  <p class="movie-title">${movie["original_title"]}</p>
-  <p class="movie-year">${movie["release_date"].slice(0, 4)}</p>
-  <p class="movie-genres">${movieGenres.join(" / ")}</p>
+  <p class="movie-title">${originalTitle}</p>
+  <p class="movie-year">${releaseDate}</p>
+  <p class="movie-genres">${movieGenres}</p>
   <div class="imdb-rating">
     <div class="imdb-star">
       <img src="./star.png" >
     </div>
-    <p>${Math.round(movie["vote_average"] * 10) / 10}</p>
+    <p>${voteAverage}</p>
   </div>
   `;
   hoverDiv.classList.add("hover-div");
