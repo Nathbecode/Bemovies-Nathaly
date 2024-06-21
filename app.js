@@ -141,13 +141,19 @@ function closeSigninModal() {
 function openSignin() {
   openSigninModal();
   login.classList.add("hidden");
+  loginSwitcher.classList.remove("signinBtnActive");
   signup.classList.remove("hidden");
+  signinSwitcher.classList.add("signinBtnActive");
+  //signinBtnActive
 }
 
 function openLogin() {
   openSigninModal();
   signup.classList.add("hidden");
+  signinSwitcher.classList.remove("signinBtnActive");
   login.classList.remove("hidden");
+  loginSwitcher.classList.add("signinBtnActive");
+  //signinBtnActive
 }
 
 function closeMovieModal() {
