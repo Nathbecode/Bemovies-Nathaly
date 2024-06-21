@@ -256,43 +256,6 @@ async function getLatestMovies() {
   return json;
 }
 
-function createSwiper(results, swiperSection, swiperWrapper, swiperElem) {
-  for (let i = 0; i < results.length; i++) {
-    const swiperSlide = document.createElement("div");
-    swiperSlide.classList.add(`swiper-slide-${swiperSection}`);
-    swiperSlide.classList.add("swiper-slide");
-
-    swiperSlide.addEventListener("click", () =>
-      displayMovieModal(results[i]["id"])
-    );
-
-    const imgDiv = createImgDiv(results[i]["poster_path"]);
-    swiperSlide.appendChild(imgDiv);
-
-    const hoverDiv = createHoverDiv(results[i]);
-    swiperSlide.appendChild(hoverDiv);
-
-    swiperWrapper.appendChild(swiperSlide);
-  }
-  const swiperNext = createSwiperNext(swiperSection);
-  const swiperPrev = createSwiperPrev(swiperSection);
-  swiperElem.appendChild(swiperPrev);
-  swiperElem.appendChild(swiperNext);
-
-  const swiper = new Swiper(`.swiper-${swiperSection}`, {
-    direction: "horizontal",
-    slidesPerView: 4,
-    spaceBetween: 5,
-    navigation: {
-      nextEl: `.swiper-button-next-${swiperSection}`,
-      prevEl: `.swiper-button-prev-${swiperSection}`,
-    },
-    scrollbar: {
-      el: `.swiper-scrollbar-${swiperSection}`,
-    },
-  });
-}
-
 async function displayMovieModal(movieId) {
   const response = await getMovieById(movieId);
   if (response["success"] === false) return;
@@ -341,6 +304,43 @@ async function getMovieById(movieId) {
   const response = await fetch(uri, options);
   const json = await response.json();
   return json;
+}
+
+function createSwiper(results, swiperSection, swiperWrapper, swiperElem) {
+  for (let i = 0; i < results.length; i++) {
+    const swiperSlide = document.createElement("div");
+    swiperSlide.classList.add(`swiper-slide-${swiperSection}`);
+    swiperSlide.classList.add("swiper-slide");
+
+    swiperSlide.addEventListener("click", () =>
+      displayMovieModal(results[i]["id"])
+    );
+
+    const imgDiv = createImgDiv(results[i]["poster_path"]);
+    swiperSlide.appendChild(imgDiv);
+
+    const hoverDiv = createHoverDiv(results[i]);
+    swiperSlide.appendChild(hoverDiv);
+
+    swiperWrapper.appendChild(swiperSlide);
+  }
+  const swiperNext = createSwiperNext(swiperSection);
+  const swiperPrev = createSwiperPrev(swiperSection);
+  swiperElem.appendChild(swiperPrev);
+  swiperElem.appendChild(swiperNext);
+
+  const swiper = new Swiper(`.swiper-${swiperSection}`, {
+    direction: "horizontal",
+    slidesPerView: 4,
+    spaceBetween: 5,
+    navigation: {
+      nextEl: `.swiper-button-next-${swiperSection}`,
+      prevEl: `.swiper-button-prev-${swiperSection}`,
+    },
+    scrollbar: {
+      el: `.swiper-scrollbar-${swiperSection}`,
+    },
+  });
 }
 
 function createImgDiv(posterPath) {
