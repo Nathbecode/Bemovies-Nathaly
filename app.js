@@ -12,17 +12,22 @@ const ulHtml = `<ul>
 <li><a href="#section-results">Search</a></li>
 <li><a href="#section-latest">Latest</a></li>
 <li><a href="#genre-search">Genres</a></li>
-<li><a>Register</a></li>
-<li><a id="openModalBtn">Signin</a></li>
+<li><a class="openSignupModalBtn">Register</a></li>
+<li><a class="openLoginModalBtn">Signin</a></li>
 </ul>`;
 unorderedLists[0].innerHTML = ulHtml;
 unorderedLists[2].innerHTML = ulHtml;
 
-const openModalBtn = document.querySelector("#openModalBtn");
-const closeBtn = document.querySelector(".close");
+const openLoginModalBtns = document.querySelectorAll(".openLoginModalBtn");
+const openSignupModalBtns = document.querySelectorAll(".openSignupModalBtn");
+const closeBtn = document.querySelectorAll(".close")[0];
 const closeBtnMovie = document.querySelectorAll(".close")[1];
 const modal = document.querySelector(".modal");
 const modalHidden = document.querySelector(".modalhidden");
+const login = document.querySelector(".login");
+const signup = document.querySelector(".signin");
+const signinSwitcher = document.querySelectorAll(".signin-btn")[0];
+const loginSwitcher = document.querySelector(".first-login");
 const imgFilm = document.querySelector(".imgfilm");
 const contentFilm = document.querySelector(".contentfilm");
 const input = document.querySelector("#input");
@@ -70,6 +75,10 @@ sectionLatest.id = "section-latest";
 const sectionGenre = document.querySelector(".genre-search");
 sectionGenre.id = "genre-search";
 
+const up = document.querySelector(".UP");
+const notMemberYetAnchor = up.parentElement;
+notMemberYetAnchor.removeAttribute("href");
+
 // Classes for Swiper.
 swiperLatestElem.classList.add("swiper");
 swiperWrapperLatest.classList.add("swiper-wrapper");
@@ -83,6 +92,7 @@ swiperWrapperGenre.classList.add("swiper-wrapper");
 // Function calls.
 divResults.classList.add("hidden");
 modalHidden.classList.add("hidden");
+modal.classList.add("hidden");
 removeSwiperSlides();
 const genres = await getGenres();
 let genreId = genres.find((x) => x.name == "Comedy")["id"];
@@ -90,8 +100,13 @@ await displayMoviesByGenre(genreId);
 await displayLatestMovies();
 
 // Events.
-openModalBtn.addEventListener("click", openSignin);
-closeBtn.addEventListener("click", closeSignin);
+openLoginModalBtns.forEach((btn) => btn.addEventListener("click", openLogin));
+openSignupModalBtns.forEach((btn) => btn.addEventListener("click", openSignin));
+
+closeBtn.addEventListener("click", closeSigninModal);
+signinSwitcher.addEventListener("click", openSignin);
+loginSwitcher.addEventListener("click", openLogin);
+up.addEventListener("click", openSignin);
 closeBtnMovie.addEventListener("click", closeMovieModal);
 searchBtn.addEventListener("click", search);
 input.addEventListener("keydown", (e) => {
@@ -104,12 +119,26 @@ genreUnorderedList.addEventListener("click", async (e) => {
 });
 
 // Functions.
-function openSignin() {
+function openSigninModal() {
   modal.classList.remove("hidden");
 }
 
-function closeSignin() {
+function closeSigninModal() {
   modal.classList.add("hidden");
+  signup.classList.add("hidden");
+  login.classList.remove("hidden");
+}
+
+function openSignin() {
+  openSigninModal();
+  login.classList.add("hidden");
+  signup.classList.remove("hidden");
+}
+
+function openLogin() {
+  openSigninModal();
+  signup.classList.add("hidden");
+  login.classList.remove("hidden");
 }
 
 function closeMovieModal() {
