@@ -332,7 +332,7 @@ function createSwiper(results, swiperSection, swiperWrapper, swiperElem) {
   const swiper = new Swiper(`.swiper-${swiperSection}`, {
     direction: "horizontal",
     slidesPerView: 4,
-    spaceBetween: 5,
+    spaceBetween: 25,
     navigation: {
       nextEl: `.swiper-button-next-${swiperSection}`,
       prevEl: `.swiper-button-prev-${swiperSection}`,

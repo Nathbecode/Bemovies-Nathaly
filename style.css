@@ -113,24 +113,28 @@ ul a:hover {
     width: 100%; /* Full width */
     height: 100%; /* Full height */
     overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
 
 /* Modal Content */
 .modal-content2 {
-    background-color: #312323;
+    background-color: #0c0b0b;
     margin: 8% auto; 
     padding: 20px;
-    border: 1px solid #888;
-    width: 60%; 
-    max-height: 80%;
+    border: 1px solid #f8f5f5;
+    width: 70%; 
+    min-height: 80%;
 }
 
 .grid-modal{
+    padding: 20px;
     display: grid;
     grid-template-columns: 1.5fr 2fr;
-    align-items: center;
+    gap: 20px;
+}
+
+.imgfilm > img{
+    border: 1px solid #f8f5f5;
 }
 
 /* The Close Button */
@@ -143,7 +147,7 @@ ul a:hover {
 
 .close:hover,
 .close:focus {
-    color: black;
+    color: rgb(66, 16, 16);
     text-decoration: none;
     cursor: pointer;
 }
@@ -162,9 +166,11 @@ ul a:hover {
 }
 
 .modal-movie-year{
-    font-family: 'Inria Sanss';
+    font-family: 'Inria Sans';
     font-weight: 700;
     color: rgba(233, 233, 233, 1);
+    letter-spacing: 3%;
+    line-height: 17px;
 }
 
 /* END HEADER ---- 1 container */
@@ -212,13 +218,13 @@ ul a:hover {
 .swiper-results{
     position: relative;
     width: 100%;
-    height: 570px;
+    min-height: 400px;
 }
 
 .swiper-latest {
     position: relative;
     width: 100%;
-    height: 570px; 
+    min-height: 400px; 
 }
 
 .swiper-slide {
@@ -229,14 +235,24 @@ ul a:hover {
 .img-div{
     position: absolute;
     z-index: 1;
-    height: 100%; 
+    object-fit: cover;
+    width: 100%;
+    overflow: hidden;
+}
+
+.img-div img {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     object-fit: cover;
 }
 
 .hover-div{
     position: absolute;
     z-index: 0;
-    background-color: rgba(0, 0, 0, 0.85);
+    background-color: rgba(26, 20, 20, 0.85);
+    min-height: 400px;
 }
 
 .hover-div:hover{
@@ -247,7 +263,6 @@ ul a:hover {
 .img:hover{
     z-index: 0;
     object-fit: cover;
-
 }
 
 .hover-div{
@@ -320,7 +335,7 @@ ul a:hover {
     margin: 0 auto;
     max-width: 100%;
     padding: 20px;
-    height: 60vh;
+    min-height: 400px;
 }
 
 .swiper-button-next-latest ,
@@ -358,6 +373,7 @@ ul a:hover {
     flex-direction: column;
     align-items: center;
     padding: 20px;
+    min-height: 200px;
 }
 .genre-head>h1{
 font-size: 16px;
@@ -380,7 +396,7 @@ font-weight: 400;
 }
 
 .swiper-genre{
-    height: 570px;
+    min-height: 400px;
 }
 
 /* MODAL */
@@ -418,7 +434,10 @@ font-weight: 400;
 .header-login,
 .login{
     margin-top: 20px;
-    padding: 0;
+}
+
+.login{
+    padding: 20px;
 }
 .signin{
     display: flex;
@@ -430,18 +449,12 @@ font-weight: 400;
     margin-top: 20px;
 }
 
-#myCheckbox2{
-    float: left;
-    transform: translateX(-155px);
-    margin: 5px;
-    cursor: pointer;
-}
 
 .second-signin{
     width: 290px !important;
     border: 1px solid #e11818 !important;
     border-radius: 8px 8px 8px 8px !important;
-    margin-left: 13px;
+    margin-left: 5px;
     margin-top: 20px;
     background-color: rgba(204, 0, 0, 1) !important;
 }
@@ -490,24 +503,26 @@ font-weight: 400;
     font-family: "Inria Sans";
     color: rgb(249, 248, 246);
     font-size: 24px;
-    transform: translateX(-5px);
 }
 
-.signin-btn:hover, .login-btn:hover {
+
+.signin-btn:hover, .login-btn:hover ,.first-login:hover{
     background-color: #7e7a7a;
     border-color: #7e7a7a;
 } 
 .first-login{
     border-radius: 0px 8px 8px 0px;
     background-color: rgba(0, 0, 0, 1);
-    background-color: rgba(0, 0, 0, 1);
     cursor: pointer;
+    border: 1px solid #fbf9f9;
 
 }
 
 .second-login{
     width: 290px;
     margin-top: 20px;
+    border: 1px solid #e11818;
+
 }
 
 .second-login{
