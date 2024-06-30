@@ -103,8 +103,16 @@ ul a:hover {
 .logo span {
     color:crimson ;
 }
+
+.openSignupModalBtn{
+    cursor: pointer;
+}
+
+.openLoginModalBtn{
+    cursor: pointer;
+}
+
 /* MODAL CONTENT FILM*/
-/* The Modal (background) */
 .modal2 {
     position: fixed; 
     z-index: 4; 
@@ -116,14 +124,13 @@ ul a:hover {
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
 
-/* Modal Content */
+/* Modal Content Film*/
 .modal-content2 {
     background-color: #0c0b0b;
-    margin: 8% auto; 
+    margin: 4% auto; 
     padding: 20px;
-    border: 1px solid #f8f5f5;
     width: 70%; 
-    min-height: 80%;
+    min-height: 60%;
 }
 
 .grid-modal{
@@ -155,7 +162,8 @@ ul a:hover {
 .contentfilm{
     display: flex;
     flex-direction: column;
-    padding: 20px;
+    gap: 20px;
+    justify-content: center;
 }
 
 .modal-movie-title{
@@ -171,6 +179,56 @@ ul a:hover {
     color: rgba(233, 233, 233, 1);
     letter-spacing: 3%;
     line-height: 17px;
+}
+
+.modal-imdb-star {
+    width: 20px;
+    max-height: 20px;
+}
+
+.modal-imdb-rating{
+    display: flex;
+}
+
+.modal-imdb-rating>p{
+    color: rgba(204, 0, 0, 1);
+    font-family: 'Inter';
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 24.2px;
+}
+
+.modal-movie-genres{
+    font-family: 'Inria Sans';
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 16.79px;
+    letter-spacing: 3%;
+    text-transform: uppercase;
+}
+
+.modal-overview {
+    font-family: 'Inria Sans';
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 3%;
+    flex-grow: 3;
+}
+
+.modal-cast {
+    font-family: 'Inria Sans';
+    font-weight: 400;
+    line-height: 16.79px;
+    letter-spacing: 3%;
+    font-size: 14px;
+    flex-grow: 2;
+    display: flex;
+    gap: 10px;
+}
+
+.modal-cast > span {
+    font-weight: 700;
 }
 
 /* END HEADER ---- 1 container */
@@ -253,6 +311,11 @@ ul a:hover {
     z-index: 0;
     background-color: rgba(26, 20, 20, 0.85);
     min-height: 400px;
+    text-align: center;
+    font-family: 'Inter';
+    padding: 20px;
+    height: 100%;
+    width: 100%;
 }
 
 .hover-div:hover{
@@ -265,18 +328,12 @@ ul a:hover {
     object-fit: cover;
 }
 
-.hover-div{
-    text-align: center;
-    font-family: 'Inter';
-    padding: 20px;
-    height: 100%;
-    width: 100%;
-}
 .movie-title{
     padding: 30px;
     font-weight: 700;
     max-height: 80px;
     overflow-y: hidden;
+    font-size: 14px;
 }
 .movie-year{
     color: rgba(176, 176, 176, 1);
@@ -364,6 +421,7 @@ ul a:hover {
 
 .genre-search{
     background: rgba(20, 21, 23, 1);
+    padding-right: 20px;
 }
 
 .genre-head{
@@ -401,7 +459,6 @@ font-weight: 400;
 
 /* MODAL */
 .modal {
-    /* display: none;  */
     position: fixed; /* Stay in place */
     z-index: 4; /* Sit on top */
     width: 100%; /* Full width */
@@ -424,7 +481,7 @@ font-weight: 400;
 
 /* Modal content box */
 .modal-content {
-    background: rgba(0, 0, 0, 1);
+    background: rgb(5, 5, 5);
     margin: 5px auto; /* 15% from the top and centered */
     padding: 20px;
     width: 410px; 
@@ -622,9 +679,232 @@ font-weight: 400;
 
 .menu-footer>.logo{
     font-size: medium;
+    margin-top: 10px;
 }
 
 .menu-footer>ul>li>a{
     font-size: 11px;
 }
 
+@media only screen and (max-width: 700px){
+    .hambur-menu{
+        width: 50px;
+        cursor: pointer;
+    }
+    .menu{
+        display: none;
+    }
+    .closebtn{
+        display: none;
+    }
+    .menu-footer>ul {
+        display: none;
+    }
+    .swiper-genre{
+        min-height: 230px;
+    }
+    .swiper-latest{
+        min-height: 130px !important; 
+    }
+    .div-latest{
+        min-height: 200px;
+    }
+    .div-results{
+        min-height: 200px;
+    }
+    .swiper-results{
+        min-height: 130px;
+    }
+    .swiper-genre{
+        min-height: 180px !important;
+    }
+    .movie-title {
+        padding: 5px; /* Half of 30px is 15px */
+        font-weight: 300;
+        font-size: 8px;
+        max-height: 80px;
+    }
+    
+    .movie-year {
+        font-weight: 300;
+        padding-top: 13.5px;
+        font-size: 8px;
+    }
+    
+    .movie-genres {
+        font-weight: 100;
+        font-size: 6px;
+        padding: 5px; 
+    }
+    
+    .imdb-rating {
+        margin: 0 auto;
+        width: 50px;
+    }
+    
+    .imdb-star {
+        margin: 0 auto;
+        width: 11px; /* 35% of 35px is 12.25px */
+        height: 11px; /* 35% of 35px is 12.25px */
+    }
+    
+    .imdb-rating > p {
+        font-weight: 300;
+        font-size: 10px !important; 
+    }
+    .hover-div{
+        min-height: 190px;
+        padding: 7px;
+    }
+        
+    .contentfilm{
+        gap: 5px;
+    }
+
+    .modal-movie-title{
+        font-size: 18px;
+    }
+
+    .modal-imdb-star {
+        width: 15px;
+        max-height: 15px;
+    }
+
+    .modal-imdb-rating>p{
+        font-family: 'Inter';
+        font-weight: 700;
+        font-size: 15px;
+        line-height: 24.2px;
+    }
+
+    .modal-overview {
+        font-size: 11px;
+        line-height: 15px;
+        letter-spacing: 1%;
+    }
+
+    .modal-cast {
+        font-family: 'Inria Sans';
+        font-weight: 400;
+        line-height: 10px;
+        letter-spacing: 1%;
+        font-size: 10px;
+        flex-grow: 2;
+        display: flex;
+        gap: 10px;
+    }
+}
+
+
+@media only screen and (max-width: 1000px){
+    .hambur-menu{
+        width: 50px;
+        cursor: pointer;
+    }
+    .menu{
+        display: none;
+    }
+    .closebtn{
+        display: none;
+    }
+    .menu-footer>ul {
+        display: none;
+    }
+    .swiper-genre{
+        min-height: 330px;
+    }
+    .swiper-latest{
+        min-height: 320px;
+    }
+    .movie-title {
+        padding: 5px; /* Half of 30px is 15px */
+        font-weight: 300;
+        font-size: 8px;
+        max-height: 80px;
+    }
+    
+    .movie-year {
+        font-weight: 300;
+        padding-top: 13.5px;
+        font-size: 8px;
+    }
+    
+    .movie-genres {
+        font-weight: 100;
+        font-size: 6px;
+        padding: 5px; 
+    }
+    
+    .imdb-rating {
+        margin: 0 auto;
+        width: 50px;
+    }
+    
+    .imdb-star {
+        margin: 0 auto;
+        width: 11px; /* 35% of 35px is 12.25px */
+        height: 11px; /* 35% of 35px is 12.25px */
+    }
+    
+    .imdb-rating > p {
+        font-weight: 300;
+        font-size: 10px !important; 
+    }
+    .hover-div{
+        min-height: 190px;
+        padding: 7px;
+    }
+        
+    .contentfilm{
+        gap: 5px;
+    }
+
+    .modal-movie-title{
+        font-size: 18px;
+    }
+
+    .modal-imdb-star {
+        width: 15px;
+        max-height: 15px;
+    }
+
+    .modal-imdb-rating>p{
+        font-family: 'Inter';
+        font-weight: 700;
+        font-size: 15px;
+        line-height: 24.2px;
+    }
+
+    .modal-overview {
+        font-size: 11px;
+        line-height: 15px;
+        letter-spacing: 1%;
+    }
+
+    .modal-cast {
+        font-family: 'Inria Sans';
+        font-weight: 400;
+        line-height: 10px;
+        letter-spacing: 1%;
+        font-size: 10px;
+        flex-grow: 2;
+        display: flex;
+        gap: 10px;
+    }
+    
+}
+
+@media only screen and (min-width: 1001px) {
+    .hambur-menu{
+        display: none;
+    }
+    .closebtn {
+        display: none;
+    }
+    .img-div{
+        max-width: 250px;
+    }
+    .hover-div{
+        max-width: 250px;
+    }
+}
