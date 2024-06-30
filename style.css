@@ -329,11 +329,11 @@ ul a:hover {
 }
 
 .movie-title{
-    padding: 30px;
+    padding: 20px;
     font-weight: 700;
     max-height: 80px;
     overflow-y: hidden;
-    font-size: 14px;
+    font-size: 16px;
 }
 .movie-year{
     color: rgba(176, 176, 176, 1);
