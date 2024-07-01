@@ -5,8 +5,6 @@ function returnKey() {
   return "353c2a1a5e37a5b9dc7b6b525d138cac";
 }
 
-export { returnKey };
-
 
 
 function returnBearerToken() {
