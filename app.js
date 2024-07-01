@@ -2,8 +2,19 @@
 // import { returnKey } from "./return-key.js";
 import { returnBearerToken } from "./return-key.js";
 
-// Variable: API key OR bearer token.
-// const apiKey = returnKey();
+function returnKey() {
+  return "353c2a1a5e37a5b9dc7b6b525d138cac";
+}
+
+export { returnKey };
+
+
+
+function returnBearerToken() {
+return `eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3OGIzNmY4NGVmZDdkNmNkZmZjOTFiZTA0ZDE4N2ExNiIsIm5iZiI6MTcxOTE0ODg5MC4wMDYzNCwic3ViIjoiNjY3ODE3NTlmN2RiZmJjYjk3NzAwZTRkIiwic2NvcGVzIjpbImFwaV9yZWFkIl0sInZlcnNpb24iOjF9.lP63uD82ZIRrKmnfOGG3vaQnj5KsbYHN4IWsiqnX0Qk`;
+}
+
+
 
 const bearerToken = returnBearerToken();
 const options = {
