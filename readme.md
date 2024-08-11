@@ -11,4 +11,6 @@ In this project, in collaboration with a classmate from BeCode, Philemon (GitHub
 - **Consuming APIs**
 
 ## Link to My Part of the Project
-The link to my front-end work can be found here: [https://nathbecode.github.io/Bemovies-Nathaly/](https://nathbecode.github.io/Bemovies-Nathaly/).
+The link to my front-end work can be found here: [Bemovies-Nathaly](https://nathbecode.github.io/Bemovies-Nathaly/).
+
+The link to my Back-end work can be found here: [becode-exercises](https://philemonphilippin.github.io/becode-exercises/BeMovies/)
