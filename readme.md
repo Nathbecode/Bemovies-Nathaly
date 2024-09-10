@@ -1,7 +1,7 @@
 # Collaboration Bemovies Project
 
 ## Overview
-This project is a **movie website** built to demonstrate the integration of **React.js** and **TMDB API** (The Movie Database API). The primary goal is to showcase dynamic fetching and rendering of movie data, along with clean design and smooth user interactions. It allows users to browse popular movies, search for specific titles, and view detailed information about each film.
+This project is a **movie website** built to demonstrate the integration of **JS** and **TMDB API** (The Movie Database API). The primary goal is to showcase dynamic fetching and rendering of movie data, along with clean design and smooth user interactions. It allows users to browse popular movies, search for specific titles, and view detailed information about each film.
 
 ## Features
 - **Home Page:** Displays popular movies fetched from TMDB API.
