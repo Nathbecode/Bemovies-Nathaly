@@ -10,7 +10,11 @@ In this project, in collaboration with a classmate from BeCode, Philemon (GitHub
 - **Async JS**
 - **Consuming APIs**
 
-## Link to My Part of the Project
+## Links
 The link to my front-end work can be found here: [Bemovies-Nathaly](https://nathbecode.github.io/Bemovies-Nathaly/).
+![](https://github.com/Nathbecode/Bemovies-Nathaly/blob/main/Bemo.PNG)
+![](https://github.com/Nathbecode/Bemovies-Nathaly/blob/main/Bemo2.PNG)
+![](https://github.com/Nathbecode/Bemovies-Nathaly/blob/main/Bemo3.PNG)
+
 
 The link to my Back-end work can be found here: [becode-exercises](https://philemonphilippin.github.io/becode-exercises/BeMovies/)
