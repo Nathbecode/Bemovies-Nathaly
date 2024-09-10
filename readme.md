@@ -7,8 +7,6 @@ This project is a **movie website** built to demonstrate the integration of **JS
 - **Home Page:** Displays popular movies fetched from TMDB API.
 - **Movie Search Functionality:** Allows users to search for specific movies by title.
 - **Movie Details Page:** Provides detailed information about a selected movie, including the title, description, rating, release date, and more.
-- **Responsive Design:** The web app is fully responsive and adapts to different screen sizes and devices.
-- **Error Handling:** Displays user-friendly error messages if a movie search yields no results or if there’s an issue with fetching data.
 - **Styled Components:** Uses **Styled-Components** to manage styling, promoting modular and reusable styles.
   
 ## Technology Used
