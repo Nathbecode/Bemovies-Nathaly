@@ -26,5 +26,3 @@ The link to my HTML/CSS work can be found here: [Bemovies-Nathaly](https://nathb
 ![](https://github.com/Nathbecode/Bemovies-Nathaly/blob/main/Bemo2.PNG)
 ![](https://github.com/Nathbecode/Bemovies-Nathaly/blob/main/Bemo1.PNG)
 
-
-The link to my JS work can be found here: [becode-exercises](https://philemonphilippin.github.io/becode-exercises/BeMovies/)
